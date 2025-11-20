@@ -1,6 +1,6 @@
 services:
   aspis_runner:
-    image: aspis
+    image: aspis:dev
     container_name: aspis_runner
     volumes:
       - .././testing/tests/:/workspace/ASPIS/tmp/

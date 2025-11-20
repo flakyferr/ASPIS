@@ -1,3 +1,5 @@
+// saxpy.cu: Example program for CUDA programming
+
 #include <stdio.h>
 
 
