@@ -27,6 +27,7 @@ debug_enabled=false
 verbose=false
 cleanup=true
 libstdcpp_added=false
+libcuda_added=false
 enable_profiling=false
 
 # Check if the shell supports colors
@@ -229,14 +230,16 @@ EOF
                     -lstdc++)
                         libstdcpp_added=true
                         ;;
-                    *.c | *.cpp)
+                    -lcudart_static)
+                        libcuda_added=true
+                        ;;
+                    *.c | *.cpp | *.cu)
                         input_files="$input_files $opt";
                         # Check if it's a .cpp file and if -lstdc++ hasn't been added yet
                         if [[ "$opt" == *.cpp ]] && [[ "$libstdcpp_added" == false ]]; then
                             clang_options="$clang_options -lstdc++"
                             libstdcpp_added=true 
                         fi
-                        
                         ;;
                     *)
                         clang_options="$clang_options $opt";
@@ -315,7 +318,7 @@ run_aspis() {
         # Extract the filename without extension
         filename=$(basename "$input_file" | sed 's/\.[^.]*$//')
         # Compile the file to LLVM IR (.ll) and save it in the build directory
-        exe $CLANG "$input_file" $clang_options -S -emit-llvm -O0 -Xclang -disable-O0-optnone -o "$build_dir/$filename.ll"
+        exe $CLANG "$input_file" $clang_options -S -emit-llvm -O0 -Xclang -disable-O0-optnone
     done
 
     ## LINK & PREPROCESS

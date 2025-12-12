@@ -1,7 +1,7 @@
 // saxpy.cu: Example program for CUDA programming
 
 #include <stdio.h>
-
+#include <algorithm>
 
 __global__
 void saxpy(int n, float a, float *x, float *y)
@@ -32,8 +32,8 @@ int main(void){
     cudaMemcpy(y, d_y, N*sizeof(float), cudaMemcpyDeviceToHost);
 
     float maxError = 0.0f;
-    for (int i=0, i<N; i++)
-        maxError = max(maxError, abs(y[i]-4.0f));
+    for (int i=0; i<N; i++)
+        maxError = std::max(maxError, abs(y[i]-4.0f));
     printf("Max error: %f\n", maxError);
     cudaFree(d_x);
     cudaFree(d_y);
