@@ -48,10 +48,10 @@ WORKDIR /workspace/llvm-project-16.0.6.src
 
 RUN mkdir build \
     && cd build \
-    && cmake -S ../llvm -B . -G "Ninja" \  
-    -DCMAKE_BUILD_TYPE=Debug \             
-    -DLLVM_ENABLE_PROJECTS='clang' \       
-    -DLLVM_INSTALL_UTILS=ON \              
+    && cmake -S ../llvm -B . -G "Ninja" \
+    -DCMAKE_BUILD_TYPE=Debug \
+    -DLLVM_ENABLE_PROJECTS='clang' \
+    -DLLVM_INSTALL_UTILS=ON \
     -DLLVM_BUILD_LLVM_DYLIB=ON \
     -DLLVM_LINK_LLVM_DYLIB=ON \
     -DLLVM_OPTIMIZED_TABLEGEN=ON \
@@ -65,7 +65,7 @@ RUN mkdir build \
     -DCMAKE_CROSSCOMPILING=ON \
     -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
     -DLLVM_TARGETS_TO_BUILD="X86;NVPTX"\
-    && ninja 
+    && ninja
 
 RUN export PATH=/home/ubuntu/llvm-project-16.0.6.src/build/bin:$PATH
 

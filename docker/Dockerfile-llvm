@@ -1,0 +1,54 @@
+FROM ubuntu:22.04
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+# ==== Dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    software-properties-common \
+    wget \
+    git \
+    curl \
+    gnupg \
+    libssl-dev \
+    ninja-build \
+    cmake \
+    lld \
+    clang \
+    && apt-get clean
+
+WORKDIR /workspace/
+
+RUN wget https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/llvm-project-16.0.6.src.tar.xz \
+    && tar -xf llvm-project-16.0.6.src.tar.xz
+
+# LLVM CMAKE CONFIG AND BUILD
+WORKDIR /workspace/llvm-project-16.0.6.src
+
+RUN mkdir build \
+    && cd build \
+    && cmake -S ../llvm -B . -G "Ninja" \  
+    -DCMAKE_BUILD_TYPE=Debug \             
+    -DLLVM_ENABLE_PROJECTS='clang' \       
+    -DLLVM_INSTALL_UTILS=ON \              
+    -DLLVM_BUILD_LLVM_DYLIB=ON \
+    -DLLVM_LINK_LLVM_DYLIB=ON \
+    -DLLVM_OPTIMIZED_TABLEGEN=ON \
+    -DLLVM_INCLUDE_EXAMPLES=OFF \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
+    -DLLVM_USE_LINKER=lld  \
+    -DCMAKE_EXPORT_COMPILE_COMMANDS=1 \
+    -DCMAKE_CROSSCOMPILING=ON \
+    -DCMAKE_BUILD_WITH_INSTALL_RPATH=ON \
+    -DLLVM_TARGETS_TO_BUILD="X86;NVPTX"\
+    && ninja 
+
+RUN export PATH=/home/ubuntu/llvm-project-16.0.6.src/build/bin:$PATH
+
+WORKDIR /workspace/cuda/
+
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
+RUN dpkg -i cuda-keyring_1.1-1_all.deb
+RUN apt-get update
+RUN apt-get -y install cuda-toolkit-11-8

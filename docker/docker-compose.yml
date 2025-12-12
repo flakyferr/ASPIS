@@ -1,7 +1,28 @@
 services:
+  aspis_builder:
+    image: aspis:latest
+    container_name: aspis_builder
+    volumes:
+      - ../.:/workspace/ASPIS/
+    working_dir: /workspace/ASPIS
+    command: >
+      sh -c "
+        mkdir -p build &&
+        cmake -B build -DLLVM_DIR=/workspace/llvm-project-16.0.6.src/build/lib/cmake/llvm &&
+        cmake --build build -- -j$(nproc)
+      "
   aspis_runner:
-    image: aspis:dev
+    image: aspis:latest
     container_name: aspis_runner
     volumes:
-      - .././testing/tests/:/workspace/ASPIS/tmp/
+      - ../.:/workspace/ASPIS/
+    working_dir: /workspace/ASPIS
     entrypoint: ["/workspace/ASPIS/aspis.sh", "--llvm-bin", "/workspace/llvm-project-16.0.6.src/build/bin"]
+  dev_shell:
+    image: aspis:latest
+    container_name: aspis_dev_shell
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../.:/workspace/ASPIS/
+    entrypoint: ["/bin/bash"]

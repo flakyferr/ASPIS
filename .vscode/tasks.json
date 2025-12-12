@@ -1,0 +1,16 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build ASPIS Image",
+            "type": "docker-build",
+            "dockerBuild": {
+                "tag": "aspis:latest",
+                "dockerfile": "${workspaceFolder}/docker/Dockerfile-aspis",
+                "context": "${workspaceFolder}",
+                "platform": "linux/amd64",
+                "pull": false
+            },
+        }
+    ]
+}
