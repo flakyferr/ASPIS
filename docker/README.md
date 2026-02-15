@@ -2,6 +2,10 @@
 
 This directory contains the necessary files to build and run ASPIS within a Docker environment. The `docker-compose.yaml` defines the aspis_runner service, which is structured to support CLI usage of the container. It mounts the `testing/tests/` directory as a shared volume, allowing ASPIS to access files from there and place compiled binaries back into that location.
 
+It also gives access to a development shell that mounts the ASPIS project as volume and allows for quick development iterations.
+
+
+
 ## Building and Running
 
 

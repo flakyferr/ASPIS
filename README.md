@@ -11,7 +11,9 @@ The hardening process is done by the sequence of passes depicted in the followin
 
 The toolchain has been tested with the following versions:
 - CMake 3.22.1
-- LLVM 16.0.0
+- LLVM 16.0.6
+- Cuda 13.1
+- Nvidia Drivers 590x
 
 During the development of ASPIS, done mostly on LLVM 15, we discovered a bug in the [`splitBasicBlock()`](https://llvm.org/doxygen/classllvm_1_1BasicBlock.html#a2bc5caaabd6841e4ab97237ebcaeb86d) procedure. The bug has been fixed in LLVM 16, so we recommend using it rather than applying the patch to the previous versions. 
 
@@ -30,6 +32,8 @@ Where `your/llvm/dir` is the directory where LLVMConfig.cmake is found (check he
 # Usage
 
 In order to apply ASPIS, you can use the built-in compilation pipeline provided by the `aspis.sh` shell script, or you can make your own custom compilation pipeline using LLVM `opt`.
+
+To apply ASPIS to CUDA code instead, use the `aspis_cuda.sh` `aspis.sh` shell script.
 
 ## Fault Handler 
 In one of your compilation unit, you must declare two extern functions having these prototypes:
