@@ -46,9 +46,10 @@ RUN mkdir build \
 
 RUN export PATH=/home/ubuntu/llvm-project-16.0.6.src/build/bin:$PATH
 
+RUN mkdir /workspace/cuda
 WORKDIR /workspace/cuda/
 
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb
 RUN dpkg -i cuda-keyring_1.1-1_all.deb
 RUN apt-get update
-RUN apt-get -y install cuda-toolkit-11-8
+RUN apt-get -y install cuda-toolkit-13-1
