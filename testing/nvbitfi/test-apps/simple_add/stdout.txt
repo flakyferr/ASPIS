@@ -1,0 +1,197 @@
+Device 0 (NVIDIA GeForce RTX 3050 Laptop GPU) is being used
+memory: 3.6819 GB ECC off 16 SMs x1740000
+#CTAs=10, nreps=10, threads/CTA=1024
+inspecting simple_add(int) - num instrs 64
+Instr 0 @ 0x0 (0) - IMAD.MOV.U32 R1, RZ, RZ, c[0x0][0x28] ;
+extracted instType: IMAD
+index of instType: 41
+Instr 1 @ 0x10 (16) - IMAD.MOV.U32 R2, RZ, RZ, c[0x0][0x160] ;
+extracted instType: IMAD
+index of instType: 41
+Instr 2 @ 0x20 (32) - ULDC.64 UR6, c[0x0][0x118] ;
+extracted instType: ULDC
+index of instType: 0
+Instr 3 @ 0x30 (48) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+extracted instType: IMAD
+index of instType: 41
+Instr 4 @ 0x40 (64) - ISETP.GE.AND P0, PT, R2, 0x1, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 5 @ 0x50 (80) - @!P0 BRA 0x270 ;
+extracted instType: BRA
+index of instType: 124
+Instr 6 @ 0x60 (96) - IADD3 R0, R2.reuse, -0x1, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 7 @ 0x70 (112) - LOP3.LUT R2, R2, 0x3, RZ, 0xc0, !PT ;
+extracted instType: LOP3
+index of instType: 53
+Instr 8 @ 0x80 (128) - ISETP.GE.U32.AND P0, PT, R0, 0x3, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 9 @ 0x90 (144) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+extracted instType: IMAD
+index of instType: 41
+Instr 10 @ 0xa0 (160) - @!P0 BRA 0x210 ;
+extracted instType: BRA
+index of instType: 124
+Instr 11 @ 0xb0 (176) - IADD3 R3, -R2, c[0x0][0x160], RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 12 @ 0xc0 (192) - IMAD.MOV.U32 R0, RZ, RZ, RZ ;
+extracted instType: IMAD
+index of instType: 41
+Instr 13 @ 0xd0 (208) - ISETP.GT.AND P0, PT, R3, RZ, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 14 @ 0xe0 (224) - @!P0 BRA 0x1d0 ;
+extracted instType: BRA
+index of instType: 124
+Instr 15 @ 0xf0 (240) - ISETP.GT.AND P1, PT, R3, 0xc, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 16 @ 0x100 (256) - PLOP3.LUT P0, PT, PT, PT, PT, 0x80, 0x0 ;
+extracted instType: PLOP3
+index of instType: 55
+Instr 17 @ 0x110 (272) - @!P1 BRA 0x170 ;
+extracted instType: BRA
+index of instType: 124
+Instr 18 @ 0x120 (288) - PLOP3.LUT P0, PT, PT, PT, PT, 0x8, 0x0 ;
+extracted instType: PLOP3
+index of instType: 55
+Instr 19 @ 0x130 (304) - IADD3 R3, R3, -0x10, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 20 @ 0x140 (320) - IADD3 R0, R0, 0x10, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 21 @ 0x150 (336) - ISETP.GT.AND P1, PT, R3, 0xc, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 22 @ 0x160 (352) - @P1 BRA 0x130 ;
+extracted instType: BRA
+index of instType: 124
+Instr 23 @ 0x170 (368) - ISETP.GT.AND P1, PT, R3, 0x4, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 24 @ 0x180 (384) - @P1 PLOP3.LUT P0, PT, PT, PT, PT, 0x8, 0x0 ;
+extracted instType: PLOP3
+index of instType: 55
+Instr 25 @ 0x190 (400) - @P1 IADD3 R3, R3, -0x8, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 26 @ 0x1a0 (416) - @P1 IADD3 R0, R0, 0x8, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 27 @ 0x1b0 (432) - ISETP.NE.OR P0, PT, R3, RZ, P0 ;
+extracted instType: ISETP
+index of instType: 50
+Instr 28 @ 0x1c0 (448) - @!P0 BRA 0x210 ;
+extracted instType: BRA
+index of instType: 124
+Instr 29 @ 0x1d0 (464) - IADD3 R3, R3, -0x4, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 30 @ 0x1e0 (480) - IADD3 R0, R0, 0x4, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 31 @ 0x1f0 (496) - ISETP.NE.AND P0, PT, R3, RZ, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 32 @ 0x200 (512) - @P0 BRA 0x1d0 ;
+extracted instType: BRA
+index of instType: 124
+Instr 33 @ 0x210 (528) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 34 @ 0x220 (544) - @!P0 BRA 0x270 ;
+extracted instType: BRA
+index of instType: 124
+Instr 35 @ 0x230 (560) - IADD3 R2, R2, -0x1, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 36 @ 0x240 (576) - IADD3 R0, R0, 0x1, RZ ;
+extracted instType: IADD3
+index of instType: 38
+Instr 37 @ 0x250 (592) - ISETP.NE.AND P0, PT, R2, RZ, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 38 @ 0x260 (608) - @P0 BRA 0x230 ;
+extracted instType: BRA
+index of instType: 124
+Instr 39 @ 0x270 (624) - S2R R2, SR_LANEID ;
+extracted instType: S2R
+index of instType: 158
+Instr 40 @ 0x280 (640) - VOTEU.ANY UR4, UPT, PT ;
+extracted instType: VOTEU
+index of instType: 0
+Instr 41 @ 0x290 (656) - UFLO.U32 UR5, UR4 ;
+extracted instType: UFLO
+index of instType: 0
+Instr 42 @ 0x2a0 (672) - UPOPC UR4, UR4 ;
+extracted instType: UPOPC
+index of instType: 0
+Instr 43 @ 0x2b0 (688) - UMOV UR8, 0x7f5e ;
+extracted instType: UMOV
+index of instType: 0
+Instr 44 @ 0x2c0 (704) - IMAD.U32 R3, RZ, RZ, UR8 ;
+extracted instType: IMAD
+index of instType: 41
+Instr 45 @ 0x2d0 (720) - IMAD R5, R0, UR4, RZ ;
+extracted instType: IMAD
+index of instType: 41
+Instr 46 @ 0x2e0 (736) - ISETP.EQ.U32.AND P0, PT, R2, UR5, PT ;
+extracted instType: ISETP
+index of instType: 50
+Instr 47 @ 0x2f0 (752) - UMOV UR5, 0x7c000000 ;
+extracted instType: UMOV
+index of instType: 0
+Instr 48 @ 0x300 (768) - IMAD.U32 R2, RZ, RZ, UR5 ;
+extracted instType: IMAD
+index of instType: 41
+Instr 49 @ 0x310 (784) - @P0 RED.E.ADD.STRONG.GPU [R2.64], R5 ;
+extracted instType: RED
+index of instType: 114
+Instr 50 @ 0x320 (800) - EXIT ;
+extracted instType: EXIT
+index of instType: 138
+Instr 51 @ 0x330 (816) - BRA 0x330;
+extracted instType: BRA
+index of instType: 124
+Instr 52 @ 0x340 (832) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 53 @ 0x350 (848) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 54 @ 0x360 (864) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 55 @ 0x370 (880) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 56 @ 0x380 (896) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 57 @ 0x390 (912) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 58 @ 0x3a0 (928) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 59 @ 0x3b0 (944) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 60 @ 0x3c0 (960) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 61 @ 0x3d0 (976) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 62 @ 0x3e0 (992) - NOP;
+extracted instType: NOP
+index of instType: 156
+Instr 63 @ 0x3f0 (1008) - NOP;
+extracted instType: NOP
+index of instType: 156
+global sum = 102400 

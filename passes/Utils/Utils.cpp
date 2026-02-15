@@ -105,6 +105,7 @@ bool shouldCompile(Function &Fn,
     const std::map<Value*, StringRef> &FuncAnnotations,
     const std::set<Function*> &OriginalFunctions) {
   assert(&Fn != NULL && "Are you passing a null pointer?");
+  Module *M = Fn.getParent();
   return 
       // the function is neither null nor empty
       
@@ -120,7 +121,10 @@ bool shouldCompile(Function &Fn,
       (!FuncAnnotations.find(&Fn)->second.startswith("exclude") /* && 
       !FuncAnnotations.find(&Fn)->second.startswith("to_duplicate") */))
       // nor it is one of the original functions
-      && OriginalFunctions.find(&Fn) == OriginalFunctions.end();
+      && OriginalFunctions.find(&Fn) == OriginalFunctions.end()
+      // Exclude CUDA host code
+      && !(!StringRef(M->getTargetTriple()).contains("nvptx") && 
+          (M->getFunction("__cudaRegisterFatBinary") || M->getFunction("cudaLaunchKernel")));
 }
 
 DebugLoc findNearestDebugLoc(Instruction *I) {
