@@ -1,0 +1,3 @@
+387,388d386
+< #include "texture_fetch_functions.h"
+< #include "texture_indirect_functions.h"

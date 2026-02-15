@@ -1,14 +1,19 @@
-FROM llvm16_debug_x86_nvptx:16.0.6-clang
+FROM flakyferr/llvm16_cuda:latest
+
 
 # Install ASPIS
 RUN mkdir /workspace/ASPIS
 COPY . /workspace/ASPIS/
-WORKDIR /workspace/ASPIS
 
-RUN mkdir build \
-    && cmake -B build -DLLVM_DIR=/workspace/llvm-project-16.0.6.src/build/lib/cmake/llvm \
+WORKDIR /workspace/llvm-project-16.0.6.src/build/lib/clang/16/include/
+RUN patch __clang_cuda_runtime_wrapper.h < /workspace/ASPIS/__clang_cuda_runtime_wrapper.patch
+WORKDIR /workspace/ASPIS/
+
+
+RUN cmake -B build -DLLVM_DIR=/workspace/llvm-project-16.0.6.src/build/lib/cmake/llvm \
     && cmake --build build
 
 
 # Export path to add llvm binaries
 ENV PATH=/workspace/llvm-project-16.0.6.src/build/bin:$PATH
+
