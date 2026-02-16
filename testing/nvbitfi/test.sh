@@ -74,6 +74,9 @@ printf "\nStep 0 (4): Run and collect output without instrumentation\n"
 cd test-apps/saxpy/
 make 2> stderr.txt
 make golden
+cd ../saxpy_aspis/
+make 2> stderr.txt
+make golden
 cd $CWD
 
 ###############################################################################

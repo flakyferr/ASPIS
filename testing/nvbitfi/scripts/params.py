@@ -208,6 +208,13 @@ apps = {
 			1, # expected runtime
 			"" # additional parameters to the run.sh
 		],
+	'saxpy_aspis': [
+			NVBITFI_HOME + '/test-apps/saxpy_aspis', # workload directory
+			'saxpy_aspis', # binary name
+			NVBITFI_HOME + '/test-apps/saxpy_aspis/', # path to the binary file
+			1, # expected runtime
+			"" # additional parameters to the run.sh
+		],
 
 }
 

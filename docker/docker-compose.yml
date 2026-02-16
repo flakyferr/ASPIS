@@ -18,6 +18,15 @@ services:
       - ../.:/workspace/ASPIS/
     working_dir: /workspace/ASPIS
     entrypoint: ["/workspace/ASPIS/aspis.sh", "--llvm-bin", "/workspace/llvm-project-16.0.6.src/build/bin"]
+
+  aspis_cuda_runner:
+    image: aspis:latest
+    container_name: aspis_cuda_runner
+    volumes:
+      - ../.:/workspace/ASPIS/
+    working_dir: /workspace/ASPIS
+    entrypoint: ["/workspace/ASPIS/aspis_cuda.sh", "--llvm-bin", "/workspace/llvm-project-16.0.6.src/build/bin", "--cuda-bin", "/usr/local/cuda/bin"]
+
   dev_shell:
     image: aspis:latest
     container_name: aspis_dev_shell

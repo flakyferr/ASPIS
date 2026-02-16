@@ -47,7 +47,7 @@ def read_inst_counts(d, app):
 		cl = line.split(';')[5].split(',')
 		countList.append([kname, int(kcount), int(icount)])
 		for e in cl:
-			if e is not "":
+			if e != "":
 				countList[-1].append(e.split(':')[1])
 	f.close()
 
@@ -100,4 +100,3 @@ def set_env(app, is_profiler):
 	if p.verbose: print ("BIN_DIR=%s" %(os.environ['BIN_DIR']))
 	if p.verbose: print ("PRELOAD_FLAG=%s" %(os.environ['PRELOAD_FLAG']))
 	if p.verbose: print ("APP_DIR=%s" %(os.environ['APP_DIR']))
-
