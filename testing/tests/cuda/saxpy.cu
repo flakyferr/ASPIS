@@ -6,14 +6,16 @@
 #include <iostream>
 #include <cstdlib>
 
-// Gestori di errore ASPIS
-__device__
+
+__device__ __noinline__
 void DataCorruption_Handler() {
     printf("Errore ASPIS: Data corruption rilevata\n");
+    asm("trap;");
 }
-__device__
+__device__ __noinline__
 void SigMismatch_Handler() {
     printf("Errore ASPIS: Signature mismatch rilevata\n");
+    asm("trap;");
 }
 
 #define gpuErrchk(ans) { gpuAssert((ans), __FILE__, __LINE__); }
