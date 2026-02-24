@@ -19,7 +19,7 @@
 set -e 
 
 # Uncomment for verbose output
-set -x 
+# set -x 
 
 CWD=`pwd`
 echo "Current working directory: $CWD"
@@ -108,4 +108,5 @@ python run_injections.py standalone # to run the injection campaign on a single 
 ################################################
 printf "\nStep 3: Parse results"
 python parse_results.py
+
 

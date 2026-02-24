@@ -75,6 +75,7 @@ for opt in $raw_opts; do
                     echo "  --eddi, --seddi, --fdsc, --no-dup"
                     echo "  --cfcss, --rasm, --inter-rasm, --no-cfc"
                     echo "  -v, --verbose"
+                    echo "  -g                  Enable debugging symbols"
                     echo "  --no-cleanup"
                     exit 0
                     ;;
@@ -102,6 +103,10 @@ for opt in $raw_opts; do
                 --rasm) cfc=1 ;;
                 --inter-rasm) cfc=2 ;;
                 --no-cfc) cfc=-1 ;;
+                -g)
+                    clang_options="$clang_options -g"
+                    eddi_options="$eddi_options --debug-enabled=true"
+                    ;;
                 --no-cleanup) cleanup=false ;;
                 *.cu) input_files="$input_files $opt" ;;
                 *) clang_options="$clang_options $opt" ;;
@@ -150,7 +155,9 @@ fi
 if [[ -z ${input_files} ]]; then error_msg "No input files provided."; fi
 
 exe mkdir -p $build_dir
-exe rm -f $build_dir/*.ll $build_dir/*.ptx $build_dir/*.fatbin $build_dir/*.o
+if [[ $cleanup == true ]]; then
+    exe rm -f $build_dir/*.ll $build_dir/*.ptx $build_dir/*.fatbin $build_dir/*.o
+fi
 
 title_msg "Compiling Device Code to IR"
 
@@ -212,7 +219,7 @@ else
     cuda_lib_dir="${cuda_home}/lib"
 fi
 
-exe $CLANG $host_objects -o $output_file -L"$cuda_lib_dir" -Wl,-rpath,"$cuda_lib_dir" -lcudart -ldl -lrt -lpthread
+exe $CLANG $clang_options $host_objects -o $output_file -L"$cuda_lib_dir" -Wl,-rpath,"$cuda_lib_dir" -lcudart -ldl -lrt -lpthread
 
 if [[ $cleanup == true ]]; then
     rm -f $build_dir/*.ll $build_dir/*.ptx $build_dir/*.fatbin $build_dir/*.o

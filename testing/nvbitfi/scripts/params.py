@@ -62,13 +62,13 @@ keep_logs = True
 # per instruction group (IGID) and bit-flip model (BFM).
 # 
 # NUM_INJECTIONS = 644
-NUM_INJECTIONS = 20
+NUM_INJECTIONS = 200
 
 # Specify how many injections you want to perform per IGID and BFM combination. 
 # Only the first THRESHOLD_JOBS will be selected from the generated NUM_INJECTIONS.
 #
 # THRESHOLD_JOBS = 384
-THRESHOLD_JOBS = 20
+THRESHOLD_JOBS = 200
 # THRESHOLD_JOBS = 1
 
 # THRESHOLD_JOBS sould be <= NUM_INJECTIONS
@@ -147,9 +147,10 @@ DMESG_XID_43 = 15
 STDOUT_ONLY_DIFF = 16
 OUT_DIFF = 17
 APP_SPECIFIC_CHECK_FAIL= 18
+ASPIS_DETECTED = 19
 
-OTHERS = 19
-NUM_CATS = 20
+OTHERS = 20
+NUM_CATS = 21
 
 CAT_STR = ["Masked: Error was never read", "Masked: Write before read",
 "Masked: other reasons", "DUE: Timeout", "DUE: Non Zero Exit Status", 
@@ -161,7 +162,7 @@ CAT_STR = ["Masked: Error was never read", "Masked: Write before read",
 "Pot DUE: App specific check failed, but dmesg recorded",
 "Pot DUE: Xid 43 recorded in dmesg",
 "SDC: Standard output is different", "SDC: Output file is different", 
-"SDC: App specific check failed", "Uncategorized"]
+"SDC: App specific check failed", "ASPIS: Error Detected", "Uncategorized"]
 
 
 #########################################################################
@@ -178,6 +179,7 @@ CAT_STR = ["Masked: Error was never read", "Masked: Write before read",
 inst_value_igid_bfm_map = {
 	G_GP: [FLIP_SINGLE_BIT],
 	G_FP32: [FLIP_SINGLE_BIT],
+	G_LD: [FLIP_SINGLE_BIT],
 
 #  Supported models
 # 	G_GP: [FLIP_SINGLE_BIT, FLIP_TWO_BITS, RANDOM_VALUE, ZERO_VALUE]

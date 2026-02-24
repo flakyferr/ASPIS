@@ -47,12 +47,6 @@ int main(void){
     int N = 1<<20;
     float *x, *y, *d_x, *d_y;
 
-    int driverVersion = 0, runtimeVersion = 0;
-    cudaDriverGetVersion(&driverVersion);
-    cudaRuntimeGetVersion(&runtimeVersion);
-    printf("CUDA Driver Version: %d.%d\n", driverVersion / 1000, (driverVersion % 1000) / 10);
-    printf("CUDA Runtime Version: %d.%d\n", runtimeVersion / 1000, (runtimeVersion % 1000) / 10);
-
     x = (float*) malloc(N*sizeof(float));
     y = (float*) malloc(N*sizeof(float));
 

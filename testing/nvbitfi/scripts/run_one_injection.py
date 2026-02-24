@@ -158,7 +158,10 @@ def classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_
 	if os.path.isfile(stdout_fname): 
 		stdout_str = str(open(stdout_fname).read())
 
-	if p.detectors and "- 43, Ch 00000010, engmask 00000101" in dmesg_delta and "- 13, Graphics " not in dmesg_delta and "- 31, Ch 0000" not in dmesg_delta: # this is specific for error detectors 
+	if "ASPIS" in stdout_str:
+		return p.ASPIS_DETECTED
+
+	if p.detectors and "Xid" in dmesg_delta and "- 43," in dmesg_delta: # this is specific for error detectors 
 		return p.DMESG_XID_43
 
         # in case an application exits with non-zero exit status be default, we make an exception here. 
@@ -173,10 +176,9 @@ def classify_injection(app, igid, kname, kcount, iid, opid, bid, retcode, dmesg_
 	if "ERROR FAIL Detected Signal SIGKILL" in inj_log_str: 
 		if p.verbose: print ("Detected SIGKILL: %s, %s, %s, %s, %s, %s" %(igid, kname, kcount, iid, opid, bid))
 		return p.OTHERS
-	if "Error not injected" in inj_log_str or "ERROR FAIL in kernel execution; Expected reg value doesn't match;" in inj_log_str: 
-		print (inj_log_str)
+	if "Error not injected" in inj_log_str or "ERROR FAIL in kernel execution; Expected reg value doesn't match;" in inj_log_str:
 		if p.verbose: print ("Error Not Injected: %s, %s, %s, %s, %s, %s" %(igid, kname, kcount, iid, opid, bid))
-		return p.OTHERS
+		return p.MASKED_OTHER # The injection was not performed, so the outcome is benign (masked).
 	if "Error: misaligned address" in stdout_str: 
 		return p.STDOUT_ERROR_MESSAGE
 	if "Error: an illegal memory access was encountered" in stdout_str: 
@@ -265,6 +267,7 @@ def get_dmesg_delta(dm_before, dm_after):
 # Run the actual injection run 
 ###############################################################################
 def run_one_injection_job(inj_mode, igid, bfm, app, kname, kcount, iid, opid, bid, icount):
+	global new_directory
 	start = datetime.datetime.now() # current time
 	[pc, inst_type, tid, injBID, ret_vat] = ["", "", -1, -1, -1]
 
@@ -302,6 +305,12 @@ def run_one_injection_job(inj_mode, igid, bfm, app, kname, kcount, iid, opid, bi
 	
 	os.chdir(cwd) # return to the main dir
 	# print (ret_cat)
+
+	if ret_cat == p.OTHERS:
+		uncat_dir = new_directory + "-uncategorized"
+		if os.path.isdir(new_directory):
+			os.rename(new_directory, uncat_dir)
+			new_directory = uncat_dir
 
 	elapsed = datetime.datetime.now() - start
 	record_result(inj_mode, igid, bfm, app, kname, kcount, iid, opid, bid, ret_cat, pc, inst_type, tid, injBID, get_seconds(elapsed), dmesg_delta, value_str, icount)

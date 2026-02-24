@@ -66,3 +66,5 @@ examples/cuda/*.txt
 examples/cuda/add
 compiled_eddi_functions.csv
 compiled_cfcss_functions.csv
+
+testing/nvbitfi/logs/*
